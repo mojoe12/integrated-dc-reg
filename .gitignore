@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+*.nii
+*.nii.gz
+*.h5
+*.feat/
+.DS_Store
