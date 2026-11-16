@@ -58,7 +58,15 @@ HCP_ROOT=/path/to/hcp python3 run_hcp_feat_after_unwarp.py --methods topup --job
 HCP_ROOT=/path/to/hcp python3 run_epi_align_mij_w1_lm_bspline_fslbend_sbrigid_l6w2_feat.py --jobs 2
 ```
 
-The weight-2 script’s `--group-only` reprints the ROI tables from finished FEATs. Those tables are one-sample tests of each subject’s sphere-mean first-level z. `run_hcp_feat_after_unwarp.py` still lists older method names (`gated`, `sigmoid`, `gate1`, `mind_ung`). The comparison here is `topup` against `sbrigid_l6w2`.
+The weight-2 script’s `--group-only` reprints the ROI tables from finished FEATs. Those tables are one-sample tests of each subject’s sphere-mean first-level z against zero, Holm-corrected within a method. `run_hcp_feat_after_unwarp.py` still lists older method names (`gated`, `sigmoid`, `gate1`, `mind_ung`). The comparison here is `topup` against `sbrigid_l6w2`.
+
+The between-method test is separate:
+
+```bash
+HCP_ROOT=/path/to/hcp python3 paired_roi_integrated_vs_topup.py
+```
+
+Each subject contributes the mean first-level z inside a 12 mm sphere. The script tests integrated against TOPUP with a paired t and a Wilcoxon signed-rank test, then applies Holm within that contrast and ROI family. The Holm values 0.010, 0.040, and 0.071 are the paired t for 2-back versus baseline across the four task spheres (L DLPFC, R DLPFC, L IPS, R IPS). The sphere is the full ball, including voxels outside the MNI brain.
 
 ## Layout
 
@@ -72,3 +80,4 @@ The weight-2 script’s `--group-only` reprints the ROI tables from finished FEA
 | `compare_unwarp_pcc.py` | FSL TOPUP, shared MNI affine, ROI coordinates |
 | `run_hcp_feat_after_unwarp.py` | MCFLIRT, MNI resample, FEAT for the TOPUP series |
 | `run_epi_align_mij_w1_lm_bspline_fslbend_sbrigid_l6w2_feat.py` | Weight-2 apply and FEAT |
+| `paired_roi_integrated_vs_topup.py` | Paired t and Wilcoxon of sphere-mean z, integrated versus TOPUP |
