@@ -81,6 +81,15 @@ Each subject contributes the mean first-level z inside a 12 mm sphere. The scrip
 | `run_hcp_feat_after_unwarp.py` | MCFLIRT, MNI resample, FEAT for the TOPUP series |
 | `run_epi_align_mij_w1_lm_bspline_fslbend_sbrigid_l6w2_feat.py` | Weight-2 apply and FEAT |
 | `paired_roi_integrated_vs_topup.py` | Paired t and Wilcoxon of sphere-mean z, integrated versus TOPUP |
+| `run_ablation_anat0_topup_rt.py` | Solver with λ_anat = 0, and TOPUP through the rigid round-trip |
+
+## Ablations
+
+```bash
+HCP_ROOT=/path/to/hcp python3 run_ablation_anat0_topup_rt.py --jobs 4
+```
+
+`u_epi_align_lm_bspline_fslbend_sbrigid_anat0.nii.gz` is the cohort solver with the anatomical weight at 0 and no mutual-information ramp. `sb_topup_rigid_rt.nii.gz` is FSL TOPUP’s field applied with the weight-2 rigid round-trip: spline into the spin-echo frame, `applytopup --method=jac --interp=spline`, spline back to the single-band reference. The weight-2 field and `sb_topup.nii.gz` are left in place. Scores are Studholme NMI on the single-band reference and displacement agreement inside the EPI brain mask.
 
 ## License
 
