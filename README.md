@@ -81,3 +81,7 @@ Each subject contributes the mean first-level z inside a 12 mm sphere. The scrip
 | `run_hcp_feat_after_unwarp.py` | MCFLIRT, MNI resample, FEAT for the TOPUP series |
 | `run_epi_align_mij_w1_lm_bspline_fslbend_sbrigid_l6w2_feat.py` | Weight-2 apply and FEAT |
 | `paired_roi_integrated_vs_topup.py` | Paired t and Wilcoxon of sphere-mean z, integrated versus TOPUP |
+
+## License
+
+MIT. See `LICENSE`.
